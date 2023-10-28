@@ -1,0 +1,162 @@
+---
+openapi: 3.0.0
+info:
+  title: Library API
+  description: This API receives book and movie hold requests placed by users via an online library catalogue.
+  contact:
+    email: hkim444@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: devices
+  description: Operations available to a library computer kiosk.
+paths:
+  /book:
+    get:
+      tags:
+      - devices
+      summary: gets a book hold request
+      description: Gets book hold request added after a timestamp
+      parameters:
+        - name: index
+          in: query 
+          description: Gets the hold requests at the index in the event store
+          schema:
+            type: integer 
+            example: 100
+      operationId: app.get_book_hold
+      responses:
+        "200":
+          description: Successfully returned a list of book hold requests
+          content: 
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/BookHold'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /movie:
+    get:
+      tags:
+      - devices
+      summary: gets a movie hold request
+      description: Gets movie hold request added after a timestamp
+      parameters:
+        - name: index
+          in: query 
+          description: Gets the hold requests at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      operationId: app.get_movie_hold
+      responses:
+        "200":
+          description: Successfully returned a list of movie hold requests
+          content: 
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/MovieHold'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    BookHold:
+      required:
+      - book_id
+      - user_id
+      - branch_id
+      - availability 
+      - timestamp
+      - trace_id 
+      type: object
+      properties:
+        book_id:
+          type: string
+          example: A12345
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        branch_id:
+          type: number
+          example: 12345
+        availability:
+          type: integer
+          example: 2
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+        trace_id:
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+
+    MovieHold:
+      required:
+      - movie_id
+      - user_id
+      - branch_id
+      - availability       
+      - timestamp 
+      - trace_id
+      type: object
+      properties:
+        movie_id:
+          type: string
+          example: beSP5CCpiGUC      
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        branch_id:
+          type: number
+          example: 12345  
+        availability:
+          type: integer
+          example: 1  
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+        trace_id:
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+

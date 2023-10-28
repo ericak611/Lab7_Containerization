@@ -1,0 +1,12 @@
+version: 1
+eventstore1:
+  url: http://localhost:8090/book
+eventstore2:
+  url: http://localhost:8090/movie
+events:
+  hostname: acit3855-system.eastus.cloudapp.azure.com
+  port: 9092
+  topic: events
+
+
+

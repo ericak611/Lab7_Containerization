@@ -1,0 +1,108 @@
+---
+openapi: 3.0.0
+info:
+  title: Library API
+  description: This API receives book and movie hold requests placed by users via an online library catalogue.
+  contact:
+    email: hkim444@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: devices
+  description: Operations available to a library computer kiosk.
+paths:
+  /book:
+    post:
+      tags:
+      - devices
+      summary: adds a book hold request
+      description: Adds a new book hold request in the system
+      operationId: app.add_book_hold
+      requestBody:
+        description: Book hold request to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookHold'
+      responses:
+        "201":
+          description: item created
+        "400":
+          description: "invalid input, object invalid"
+  /movie:
+    post:
+      tags:
+      - devices
+      summary: adds a movie hold request
+      description: Adds a new movie hold request in the system
+      operationId: app.add_movie_hold
+      requestBody:
+        description: Movie hold request to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieHold'
+      responses:
+        "201":
+          description: item created
+        "400":
+          description: "invalid input, object invalid"
+components:
+  schemas:
+    BookHold:
+      required:
+      - book_id
+      - user_id
+      - branch_id
+      - availability 
+      - timestamp 
+      type: object
+      properties:
+        book_id:
+          type: string
+          example: A12345
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        branch_id:
+          type: number
+          example: 12345
+        availability:
+          type: integer
+          example: 2
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+
+    MovieHold:
+      required:
+      - movie_id
+      - user_id
+      - branch_id
+      - availability       
+      - timestamp 
+      type: object
+      properties:
+        movie_id:
+          type: string
+          example: beSP5CCpiGUC      
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        branch_id:
+          type: number
+          example: 12345  
+        availability:
+          type: integer
+          example: 1  
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
