@@ -69,7 +69,6 @@ def populate_stats():
     else:
         logger.error("Failed to get events from /movie")
 
-    logger.info("halfwayish")
     new_book_max = [d["availability"] for d in new_book_requests]
     new_movie_max = [d["availability"] for d in new_movie_requests]
 
@@ -79,7 +78,6 @@ def populate_stats():
     hold_requests['max_bh_availability'] = max(new_book_max, default=0) + current_book_max
     hold_requests['max_mh_availability'] = max(new_movie_max, default=0) + current_movie_max
 
-    logger.info("Got up to this point")
     current_datetime = datetime.datetime.now()
     timestamp_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')
 
@@ -89,7 +87,6 @@ def populate_stats():
         json.dump(hold_requests, file, indent=2)
         logger.info("Successfully written into file")
         
-    logger.info("didn't really work but got to this point")
 
 def get_stats():
     logger.info("Request for statistics has started")
