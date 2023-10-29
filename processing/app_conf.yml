@@ -4,7 +4,7 @@ datastore:
 scheduler:
   period_sec: 5
 eventstore:
-  url: http://acit3855-system.eastus.cloudapp.azure.com:8090
+  url: http://localhost:8090
 
 
 
