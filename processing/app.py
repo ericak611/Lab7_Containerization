@@ -51,7 +51,7 @@ def populate_stats():
     # Log based on status code 
     if book_response.status_code == 200:
         new_book_requests = book_response.json()
-        num_book_requests = len(new_book_requests) - hold_requests['num_bh_requests']
+        num_book_requests = len(new_book_requests) 
         if num_book_requests > 0:
             hold_requests['num_bh_requests'] += num_book_requests
 
@@ -62,7 +62,7 @@ def populate_stats():
     # Log based on status code 
     if movie_response.status_code == 200:
         new_movie_requests = movie_response.json()
-        num_movie_requests = len(new_movie_requests) - hold_requests['num_bh_requests']
+        num_movie_requests = len(new_movie_requests) 
         if num_movie_requests > 0:
             hold_requests['num_mh_requests'] += num_movie_requests
 
