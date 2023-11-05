@@ -71,16 +71,21 @@ def populate_stats():
     else:
         logger.error("Falied to get events from /movie")
         
-    new_book_max = [d["availability"] for d in new_book_requests]
-    new_movie_max = [d["availability"] for d in new_movie_requests]
 
     current_book_max = hold_requests['max_bh_availability']  
     current_movie_max = hold_requests['max_mh_availability']  
 
+    new_book_max = max([d["availability"] for d in new_book_requests], default=0)
+    new_movie_max = max([d["availability"] for d in new_movie_requests], default=0)
 
-    hold_requests['max_bh_availability'] = max(new_book_max, default=0) + current_book_max
+    # Update max availability with the new maximum values
+    hold_requests['max_bh_availability'] = new_book_max + current_book_max
+    hold_requests['max_mh_availability'] = new_movie_max + current_movie_max
+    # new_book_max = [d["availability"] for d in new_book_requests]
+    # new_movie_max = [d["availability"] for d in new_movie_requests]
 
-    hold_requests['max_mh_availability'] = max(new_movie_max, default=0) + current_movie_max
+    # hold_requests['max_bh_availability'] = max(new_book_max, default=0) + current_book_max
+    # hold_requests['max_mh_availability'] = max(new_movie_max, default=0) + current_movie_max
 
     current_datetime = datetime.datetime.now()
     timestamp_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')
