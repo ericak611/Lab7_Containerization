@@ -62,6 +62,13 @@ services:
     ports:
       - "8110:8110"
     depends_on:
-      - kafka      
+      - kafka     
+  dashboard:
+    image: dashboard:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "processing"
+      - "audit_log" 
 volumes:
   my-db:
