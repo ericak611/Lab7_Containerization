@@ -39,8 +39,8 @@ export default function AppStats() {
 							<th>Movie Hold Requests</th>
 						</tr>
 						<tr>
-							<td># BH: {stats['num_bp_requests']}</td>
-							<td># MH: {stats['num_hr_requests']}</td>
+							<td># BH: {stats['num_bh_requests']}</td>
+							<td># MH: {stats['num_mh_requests']}</td>
 						</tr>
 						<tr>
 							<td colspan="2">Max BH Availability: {stats['max_bh_availability']}</td>
